@@ -4,11 +4,11 @@ import pandas as pd
 from sklearn import datasets
 from sklearn.naive_bayes import GaussianNB
 
-# 📌 โหลดข้อมูล Heart Dataset
-Heart = pd.read_csv("./data/heart02.csv")
-X = Heart.drop(columns=['HeartDisease'])
-y = Heart.HeartDisease
-HeartDisease=Heart.HeartDisease
+# 📌 โหลดข้อมูล Apple Dataset
+Apple = pd.read_csv("./data/Apple01.csv")
+X = Apple.drop(columns=['Quality'])
+y = Apple.Quality
+AppleQuality = y
 
 
 # 📌 สร้างและฝึกโมเดล Naïve Bayes
@@ -16,27 +16,26 @@ model = GaussianNB()
 model.fit(X, y)
 
 # 📌 สร้าง Web App ด้วย Streamlit
-st.title("HeartDisease - Naïve Bayes")
-st.write("กรอกข้อมูลHeartDisease แล้วให้โมเดลทำนายHeartDisease")
+st.title("AppleQuality")
+st.write("กรอกข้อมูล Apple แล้วให้โมเดลทำนาย Quality")
 
 # 📌 สร้างอินพุตให้ผู้ใช้กรอกข้อมูล
-A1 = st.number_input("กรุณาเลือกข้อมูล Age(อายุ)")
-A2 = st.selectbox("กรุณาเลือก Sex(เพศ)ชาย=1 หญิง=0",[0,1])
-A3 = st.selectbox("กรุณาเลือก ChestPainType ASY = 1 ATA =2 NAP = 3 TA = 4",[1,2,3,4])
-A4 = st.slider("กรุณาเลือกข้อมูล RestingBP 0 - 200",0,200)
-A5 = st.slider("กรุณาเลือกข้อมูล Cholesterol 0 - 603",0,603)
-A6 = st.selectbox("กรุณาเลือก FastingBS ",[0,1])
-A7 = st.selectbox("กรุณาเลือก RestingECG LVH = 1 Normal = 2 ST =3",[1,2,3])
-A8 = st.slider("กรุณาเลือกข้อมูล MaxHR 0 - 202",0,202)
-A9 = st.selectbox("กรุณาเลือก ExerciseAngina Y = 1 N = 0",[0,1])
-A10 = st.slider("กรุณาเลือกข้อมูล Oldpeak -2.6 - 6.2",-2.6,6.2)
-A11= st.selectbox("กรุณาเลือก ST_Slope Down = 1 Flat = 2 UP = 3",[1,2,3])
+A1 = st.number_input("กรุณากรอกข้อมูล A_id",0,3999)
+A2 = st.slider("กรุณาเลือกข้อมูล Size ",-7.15,6.41)
+A3 = st.slider("กรุณาเลือกข้อมูล Weight ",-7.15,5.79)
+A4 = st.slider("กรุณาเลือกข้อมูล Sweetness ",-6.89,6.37)
+A5 = st.slider("กรุณาเลือกข้อมูล Crunchiness",-6.06,7.62)
+A6 = st.slider("กรุณาเลือกข้อมูล Juiciness",-5.96,7.36)
+A7 = st.slider("กรุณาเลือกข้อมูล Ripeness",-5.86,7.24)
+A8 = st.slider("กรุณาเลือกข้อมูล Acidity",-7.01,7.4)
+
 
 # 📌 ปุ่มกดเพื่อทำนาย
 if st.button("🔍 Predict"):
-    user_input = np.array([[A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11]])
+    user_input = np.array([[A1,A2,A3,A4,A5,A6,A7,A8]])
     prediction = model.predict(user_input)
-    predicted_class = HeartDisease[prediction[0]]
-    
-    st.success(f"🌼 ผลลัพธ์: ของการเป็นโรคหัวใจ **{predicted_class}**")
+    predicted_class = AppleQuality[prediction[0]]
+    if(predicted_class == 1) : st.success(f"🌼 ผลลัพธ์: Good")
+    else : st.success(f"🌼 ผลลัพธ์: bad")
+
 
