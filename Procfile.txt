@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit  run Apple Naivebayes.py
+web: sh setup.sh && streamlit  run AppleNaivebayes.py
