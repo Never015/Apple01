@@ -8,7 +8,7 @@ from sklearn.naive_bayes import GaussianNB
 Apple = pd.read_csv("./data/Apple01.csv")
 X = Apple.drop(columns=['Quality'])
 y = Apple.Quality
-AppleQuality = y
+
 
 
 # 📌 สร้างและฝึกโมเดล Naïve Bayes
@@ -34,7 +34,7 @@ A8 = st.slider("กรุณาเลือกข้อมูล Acidity",-7.01,
 if st.button("🔍 Predict"):
     user_input = np.array([[A1,A2,A3,A4,A5,A6,A7,A8]])
     prediction = model.predict(user_input)
-    predicted_class = AppleQuality[prediction[0]]
+    predicted_class = y[prediction[0]]
     if(predicted_class == 1) : st.success(f"🌼 ผลลัพธ์: Good")
     else : st.success(f"🌼 ผลลัพธ์: bad")
 
